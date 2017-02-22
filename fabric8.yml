@@ -5,9 +5,7 @@ links:
   Job: "http://jenkins.online-tennant.int.rdu2c.fabric8.io/job/spring-boot-webmvc"
   Production: "http://172.30.132.216:80/kubernetes/pods?namespace=online-tennant-production"
   Staging: "http://172.30.132.216:80/kubernetes/pods?namespace=online-tennant-staging"
-  Testing: "http://172.30.132.216:80/kubernetes/pods?namespace=online-tennant-testing"
 environments:
-  Testing: "online-tennant-testing"
   Staging: "online-tennant-staging"
   Production: "online-tennant-production"
 useLocalFlow: true
