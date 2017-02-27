@@ -18,8 +18,10 @@ clientsTemplate{
     def currentNamespace = utils.getNamespace()
     def envStage = utils.environmentNamespace('staging')
     def envProd = utils.environmentNamespace('production')
-    
+
     git 'https://github.com/rawlingsj/spring-boot-webmvc.git'
+    def m = readMavenPom file: 'pom.xml'
+    def artifactId = m.artifactId
 
     echo 'NOTE: running pipelines for the first time will take longer as build and base docker images are pulled onto the node'
     container(name: 'maven') {
@@ -32,7 +34,7 @@ clientsTemplate{
     container(name: 'clients') {
       stage 'Rollout Staging'
       kubernetesApply(environment: envStage)
-      sh "oc tag ${currentNamespace}/${env.JOB_NAME}:${canaryVersion} ${envStage}/${env.JOB_NAME}:${canaryVersion}"
+      sh "oc tag ${currentNamespace}/${artifactId}:${canaryVersion} ${envStage}/${artifactId}:${canaryVersion}"
 
       stage 'Approve'
       approve {
@@ -44,7 +46,7 @@ clientsTemplate{
 
       stage 'Rollout Production'
       kubernetesApply(environment: envProd)
-      sh "oc tag ${currentNamespace}/${env.JOB_NAME}:${canaryVersion} ${envProd}/${env.JOB_NAME}:${canaryVersion}"
+      sh "oc tag ${currentNamespace}/${artifactId}:${canaryVersion} ${envProd}/${artifactId}:${canaryVersion}"
     }
   }
 }
