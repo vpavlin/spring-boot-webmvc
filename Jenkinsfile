@@ -1,5 +1,5 @@
 #!/usr/bin/groovy
-@Library('github.com/fabric8io/fabric8-pipeline-library@feature/limit-builder-containers')
+@Library('github.com/vpavlin/fabric8-pipeline-library@feature/limit-builder-containers')
 
 def versionPrefix = ""
 try {
